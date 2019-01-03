@@ -1,8 +1,8 @@
 package com.alexander.recycler;
 
 import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +21,6 @@ public class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private SparseArray<ViewHolderFactory> factoryMap;
 
     public CustomAdapter(List<BaseItem> data){
-        this.data = data;
         binders = new ArrayList<>();
         setData(data);
         initFactory();
@@ -51,6 +50,19 @@ public class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List<Object> payloads) {
+
+        if (payloads.isEmpty())
+            super.onBindViewHolder(holder, position, payloads);
+        else {
+            ViewHolderBinder binder = binders.get(position);
+            if (binder != null){
+
+                binder.bindViewHolder(holder, payloads);
+            }
+        }
+    }
 
     @Override
     public int getItemViewType(int position) {
@@ -70,14 +82,11 @@ public class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private ViewHolderBinder generateBinder(BaseItem item){
 
         if (item.getType() == ItemTypes.FIRST_ITEM.type){
-            Log.d("PROVERKA", "gen");
             return new FirstMyViewHolderBinder(item, ItemTypes.FIRST_ITEM.type);
         } else if (item.getType() == ItemTypes.SECOND_ITEM.type){
-            Log.d("PROVERKA", "ged");
             return new SecondMyViewHolderBinder(item, ItemTypes.SECOND_ITEM.type);
 
         } else if (item.getType() == ItemTypes.THIRD_ITEM.type){
-            Log.d("PROVERKA", "get");
             return new ThirdMyViewHolderBinder(item, ItemTypes.THIRD_ITEM.type);
         }
         return null;
@@ -88,7 +97,20 @@ public class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         for (BaseItem item: items){
             binders.add(generateBinder(item));
         }
-        notifyDataSetChanged();
+        this.data = items;
+    }
+
+    public void onNewData(List<BaseItem> newData){
+
+        List<Worker> workers = new ArrayList<>();
+        for (BaseItem item: data)
+            workers.add((Worker) item);
+        List<Worker> newWorkers = new ArrayList<>();
+        for (BaseItem item: newData)
+            newWorkers.add((Worker) item);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffCall(workers, newWorkers));;
+        setData(newData);
+        diffResult.dispatchUpdatesTo(this);
     }
 
     public static class FirstViewHolder extends RecyclerView.ViewHolder {
