@@ -2,6 +2,7 @@ package com.alexander.recycler;
 
 import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -32,6 +33,7 @@ public class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         factoryMap.put(ItemTypes.FIRST_ITEM.type, new FirstViewHolderFactory());
         factoryMap.put(ItemTypes.SECOND_ITEM.type, new SecondViewHolderFactory());
         factoryMap.put(ItemTypes.THIRD_ITEM.type, new ThirdViewHolderFactory());
+        factoryMap.put(ItemTypes.FOURTH_ITEM.type, new FourthViewHolderFactory());
     }
 
     @NonNull
@@ -58,7 +60,6 @@ public class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         else {
             ViewHolderBinder binder = binders.get(position);
             if (binder != null){
-
                 binder.bindViewHolder(holder, payloads);
             }
         }
@@ -76,6 +77,9 @@ public class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         else if (data.get(position).getType() == ItemTypes.THIRD_ITEM.type){
             return ItemTypes.THIRD_ITEM.type;
         }
+        else if (data.get(position).getType() == ItemTypes.FOURTH_ITEM.type) {
+            return ItemTypes.FOURTH_ITEM.type;
+        }
         return -1;
     }
 
@@ -83,12 +87,16 @@ public class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         if (item.getType() == ItemTypes.FIRST_ITEM.type){
             return new FirstMyViewHolderBinder(item, ItemTypes.FIRST_ITEM.type);
+
         } else if (item.getType() == ItemTypes.SECOND_ITEM.type){
             return new SecondMyViewHolderBinder(item, ItemTypes.SECOND_ITEM.type);
 
         } else if (item.getType() == ItemTypes.THIRD_ITEM.type){
             return new ThirdMyViewHolderBinder(item, ItemTypes.THIRD_ITEM.type);
-        }
+
+        } else if (item.getType() == ItemTypes.FOURTH_ITEM.type){
+        return new FourthMyViewHolderBinder(item, ItemTypes.FOURTH_ITEM.type);
+    }
         return null;
     }
 
@@ -141,11 +149,27 @@ public class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public static class ThirdViewHolder extends RecyclerView.ViewHolder {
 
-        public Button button;
+        public Button buttonT;
 
         public ThirdViewHolder(@NonNull View itemView) {
             super(itemView);
-            button = itemView.findViewById(R.id.button);
+            buttonT = itemView.findViewById(R.id.buttonT);
+        }
+    }
+
+    public static class FourthViewHolder extends RecyclerView.ViewHolder {
+
+        public RecyclerView recyclerViewIn;
+
+        public FourthViewHolder(@NonNull View itemView) {
+            super(itemView);
+            recyclerViewIn = itemView.findViewById(R.id.recyclerViewIn);
+            recyclerViewIn.setLayoutManager(new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
+            List<String> strings = new ArrayList<>();
+            strings.add("22");
+            strings.add("33");
+            Adapter adapter = new Adapter(strings);
+            recyclerViewIn.setAdapter(adapter);
         }
     }
 

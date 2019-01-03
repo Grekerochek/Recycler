@@ -12,7 +12,7 @@ public class WorkerGenerator {
     private static List<Integer> femalePhoto = new ArrayList<>(Arrays.asList(R.drawable.ic_female_black, R.drawable.ic_female_green, R.drawable.ic_female_red, R.drawable.ic_female_magnetta));
     private static List<Integer> malePhoto = new ArrayList<>(Arrays.asList(R.drawable.ic_male_black, R.drawable.ic_male_green, R.drawable.ic_male_red, R.drawable.ic_male_magnetta));
     private static List<String> positions = new ArrayList<>(Arrays.asList("Android", "iOs", "Web", "Designer"));
-    private static List<Integer> types =new ArrayList<>(Arrays.asList(0,1,2));
+    private static List<Integer> types =new ArrayList<>(Arrays.asList(0,1,2,3));
 
     public static Worker generateWorker() {
         Worker worker = new Worker();
@@ -27,8 +27,6 @@ public class WorkerGenerator {
             index = randomGenerator.nextInt(malePhoto.size());
             Integer randomPhoto = malePhoto.get(index);
             worker.setPhoto(randomPhoto);
-            Integer randomType = types.get(randomGenerator.nextInt(3));
-            worker.setType(randomType);
         } else {
             index = randomGenerator.nextInt(femaleNames.size());
             String randomName = femaleNames.get(index);
@@ -38,9 +36,9 @@ public class WorkerGenerator {
             index = randomGenerator.nextInt(femalePhoto.size());
             Integer randomPhoto = femalePhoto.get(index);
             worker.setPhoto(randomPhoto);
-            Integer randomType = types.get(randomGenerator.nextInt(3));
-            worker.setType(randomType);
         }
+        Integer randomType = types.get(randomGenerator.nextInt(4));
+        worker.setType(randomType);
         worker.setAge(Integer.toString(20 + randomGenerator.nextInt(10)));
         index = randomGenerator.nextInt(positions.size());
         worker.setPosition(positions.get(index));
