@@ -1,5 +1,7 @@
 package com.alexander.recycler;
 
+import java.util.List;
+
 public class Worker implements BaseItem {
     private int id;
     private String name;
@@ -7,6 +9,7 @@ public class Worker implements BaseItem {
     private String age;
     private String position;
     private int type;
+    private List<String> strings;
 
 
     public int getId() {
@@ -55,5 +58,13 @@ public class Worker implements BaseItem {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public List<String> getStrings() {
+        return strings;
+    }
+
+    public void setStrings(List<String> strings) {
+        this.strings = strings;
     }
 }

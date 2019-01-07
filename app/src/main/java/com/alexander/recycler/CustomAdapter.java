@@ -164,12 +164,6 @@ public class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public FourthViewHolder(@NonNull View itemView) {
             super(itemView);
             recyclerViewIn = itemView.findViewById(R.id.recyclerViewIn);
-            recyclerViewIn.setLayoutManager(new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
-            List<String> strings = new ArrayList<>();
-            strings.add("22");
-            strings.add("33");
-            Adapter adapter = new Adapter(strings);
-            recyclerViewIn.setAdapter(adapter);
         }
     }
 

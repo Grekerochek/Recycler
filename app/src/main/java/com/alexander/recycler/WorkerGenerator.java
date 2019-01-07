@@ -37,11 +37,13 @@ public class WorkerGenerator {
             Integer randomPhoto = femalePhoto.get(index);
             worker.setPhoto(randomPhoto);
         }
+        ArrayList<String> strings = new ArrayList<>(Arrays.asList("Первая", "Вторая", "Третья", "Четвертая"));
         Integer randomType = types.get(randomGenerator.nextInt(4));
         worker.setType(randomType);
         worker.setAge(Integer.toString(20 + randomGenerator.nextInt(10)));
         index = randomGenerator.nextInt(positions.size());
         worker.setPosition(positions.get(index));
+        worker.setStrings(strings);
         return worker;
     }
 

@@ -11,6 +11,7 @@ import java.util.List;
 public class FourthMyViewHolderBinder extends ViewHolderBinder {
 
     private final Worker item;
+    private Adapter adapter;
 
     public FourthMyViewHolderBinder(BaseItem item, int viewType) {
         super(viewType);
@@ -20,6 +21,9 @@ public class FourthMyViewHolderBinder extends ViewHolderBinder {
     @Override
     public void bindViewHolder(RecyclerView.ViewHolder holder) {
         CustomAdapter.FourthViewHolder viewHolder = (CustomAdapter.FourthViewHolder) holder;
+        viewHolder.recyclerViewIn.setLayoutManager(new LinearLayoutManager(viewHolder.itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
+        adapter = new Adapter(item.getStrings());
+        viewHolder.recyclerViewIn.setAdapter(adapter);
     }
 
     @Override
@@ -27,8 +31,8 @@ public class FourthMyViewHolderBinder extends ViewHolderBinder {
         CustomAdapter.FourthViewHolder viewHolder = (CustomAdapter.FourthViewHolder) holder;
         Bundle o = (Bundle) payloads.get(0);
         for (String key: o.keySet()){
-            if (key.equals("photo")){
-                //viewHolder.text.setText("Hello!");
+            if (key.equals("strings")){
+                viewHolder.recyclerViewIn.setAdapter(adapter);
             }
         }
     }
