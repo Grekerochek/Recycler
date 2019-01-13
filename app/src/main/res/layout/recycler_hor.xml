@@ -1,19 +1,10 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.RecyclerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/recyclerViewIn"
+    android:scrollbars="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingEnd="15dp"
-    android:paddingRight="15dp"
-    android:paddingLeft="15dp"
-    android:paddingStart="15dp">
+    android:layout_height="wrap_content" />
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerViewIn"
-        android:scrollbars="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"/>
-
-</android.support.constraint.ConstraintLayout>
 
 
 
